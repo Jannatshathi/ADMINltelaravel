@@ -17,7 +17,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <a href="#"><b>Admin</b>LTE</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -29,9 +29,10 @@
           {{ session('status') }}
       </div>
   @endif
-  
+
       <form method="POST" action="{{ route('password.email') }}">
         @csrf
+        
         <div class="input-group mb-3">
           <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" class="form-control" placeholder="Email">
           <div class="input-group-append">
@@ -47,10 +48,10 @@
       </form>
 
       <p class="mt-3 mb-1">
-        <a href="login.html">Login</a>
+        <a href="#">Login</a>
       </p>
       <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="#" class="text-center">Register a new membership</a>
       </p>
     </div>
     <!-- /.login-card-body -->

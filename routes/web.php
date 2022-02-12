@@ -33,3 +33,9 @@ Route::resource('/student',StudentController::class);
 // Route::put('/student/update/{student}',[StudentController::class,'update'])->name('student.update');
 // Route::delete('/student/delete/{student}',[StudentController::class,'delete'])->name('student.delete');
 // Route::get('/student/show/{student}',[StudentController::class,'show'])->name('student.show');
+
+Route::group(['middleware' => ['auth','verified', 'admin']], function () {
+    Route::get('/admin',function(){
+        return 'admin';
+    });
+});

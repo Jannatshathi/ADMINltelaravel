@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Http\Requests\Studentstore;
 use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
@@ -21,13 +22,16 @@ class StudentController extends Controller
     }
 
 
-    public function store(Request $request){
+    public function store(Studentstore $request){
+      
         $image_name = '';
         if($request->hasfile('image'))
                  {
                     $filename = $request->image->move('images', $request->image->hashName()); 
                 
                     }
+
+                    
 
         Student::create([
             'name' => $request->name,

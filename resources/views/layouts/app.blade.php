@@ -25,8 +25,29 @@
   <link rel="stylesheet" href="{{asset('backend/plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('backend/plugins/summernote/summernote-bs4.min.css')}}">
+<style>
+#sectionOne {
+    position: relative;
+    z-index: 10;
+  }
+  #sectionTwo {
+    position: relative;
+    z-index: 20;
+  }
+  #sectionThree {
+    position: relative;
+    z-index: 1050;
+  }
+</style>
+  
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+
+  @if (session('status'))
+      <div class="alert alert-danger" id="sectionThree" role="alert">
+          {{ session('status') }}
+      </div>
+  @endif
 <div class="wrapper">
 
   <!-- Preloader -->
