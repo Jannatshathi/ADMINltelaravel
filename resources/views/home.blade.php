@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
     <!-- Content Header (Page header) -->
-    <x-pageheader data="Dashboard" />
+    
+    <x-pageheader data1="Students!" data2="Home" data3="Students" />
 
       <!-- /.content-header -->
   

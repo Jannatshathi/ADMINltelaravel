@@ -4,7 +4,8 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-10">
-          <x-pageheader data="Studentlist" />
+          <x-pageheader data1="Studentlist" data2="Home" data3="Studentlist"/>
+          
             <br>
 
 <div class="card">

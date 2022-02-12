@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('content')
 
+
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-10">
-            
+          <x-pageheader data="Student Form" />
 <form action="{{route('student.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
      

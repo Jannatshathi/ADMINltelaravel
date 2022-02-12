@@ -11,12 +11,17 @@ class pageheader extends Component
      *
      * @return void
      */
-    public $text;
+    public $data1;
+     public $data2;
+     public $data3;
 
-    public function __construct($data)
+    public function __construct($data1, $data2, $data3)
     {
-        $this->text = $data;
+        $this->data1 = $data1;
+        $this->data2 = $data2;
+        $this->data3 = $data3;
     }
+   
 
     /**
      * Get the view / contents that represent the component.

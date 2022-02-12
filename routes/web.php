@@ -18,10 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
+Route::group(['middleware' => ['auth','verified']], function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+});
 //student
 Route::resource('/student',StudentController::class);
 
