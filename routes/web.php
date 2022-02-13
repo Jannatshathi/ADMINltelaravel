@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,19 +26,25 @@ Auth::routes(['verify' => true]);
 Route::group(['middleware' => ['auth','verified']], function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
+
 //student
 Route::resource('/student',StudentController::class);
-
-// Route::get('/student/create',[StudentController::class, 'create'])->name('student.create');
-// Route::get('/student/list',[StudentController::class, 'list'])->name('student.list');
-// Route::post('/student/store',[StudentController::class, 'store'])->name('student.store');
-// Route::get('/student/edit/{student}',[StudentController::class,'edit'])->name('student.edit');
-// Route::put('/student/update/{student}',[StudentController::class,'update'])->name('student.update');
-// Route::delete('/student/delete/{student}',[StudentController::class,'delete'])->name('student.delete');
-// Route::get('/student/show/{student}',[StudentController::class,'show'])->name('student.show');
 
 Route::group(['middleware' => ['auth','verified', 'admin']], function () {
     Route::get('/admin',function(){
         return 'admin';
     });
+});
+
+
+Route::group(['prefix'=>'admin', 'middleware' =>['auth','admin']], function(){
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
+ 
+});
+
+Route::group(['prefix'=>'user', 'middleware' =>['auth','user']], function(){
+    Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+    Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
+    
 });
