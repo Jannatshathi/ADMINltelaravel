@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-10">
-              <x-pageheader data1="Studentlist" data2="Home" data3="Studentlist"/>
+             
               
                 <br>
     
@@ -30,10 +30,10 @@
                   </tr>
                 </thead>
                  <tbody>
-                  @foreach($blogs as $key=>$blog)
+                  @foreach($blogs as $blog)
                   <tr>
     
-                    <td>{{$key+1}}</td>
+                    <td>{{$blog->id}}</td>
                     <td>{{$blog->name}}</td>
                     <td>{{$blog->type}}</td>
                     <td>{{$blog->details}}</td>
@@ -60,6 +60,7 @@
                   @endforeach
                 </tbody>
               </table>
+              {{$blogs->links('vendor.pagination.bootstrap-4')}}
         </div>
     </div>
             </div>
