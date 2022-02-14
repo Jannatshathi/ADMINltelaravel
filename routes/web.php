@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HelperTestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +49,6 @@ Route::group(['prefix'=>'user', 'middleware' =>['auth','user']], function(){
     Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
     
 });
+
+//helper
+Route::get('/test-helper',[HelperTestController::class,'checkhelper']);
