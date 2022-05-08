@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\HelperTestController;
+use App\Http\Controllers\ProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -41,14 +43,18 @@ Route::group(['middleware' => ['auth','verified', 'admin']], function () {
 Route::group(['prefix'=>'admin', 'middleware' =>['auth','admin']], function(){
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
- 
+
 });
 
 Route::group(['prefix'=>'user', 'middleware' =>['auth','user']], function(){
     Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
     Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
-    
+
 });
 
 //helper
 Route::get('/test-helper',[HelperTestController::class,'checkhelper']);
+
+//products
+Route::get('/index_product', [ProductController::class,'indexProduct'])->name('products.index');
+Route::post('/addProduct', [ProductController::class,'addProduct'])->name('uploadproducts');

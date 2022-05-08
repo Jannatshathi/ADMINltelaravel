@@ -18,7 +18,7 @@
 
 <form action="{{route('student.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
-     
+
    <div class="mb-3">
      <label for="exampleInputEmail1" class="form-label">Name</label>
      <input style="color: rgb(0, 0, 0) !important" name='name' type="text" class="form-control" id="exampleInputText" aria-describedby="emailHelp">
@@ -35,12 +35,12 @@
      <label for="exampleInputEmail1" class="form-label">Address</label>
      <input style="color: rgb(0, 0, 0) !important" name='address' type="address" class="form-control" id="exampleInputText" aria-describedby="emailHelp">
    </div>
- 
+
  <div class="mb-3">
      <label for="exampleInputEmail1" class="form-label">Image</label>
-     <input name='image' type="file" class="form-control" id="exampleInputText" aria-describedby="emailHelp">
+     <input name='image' type="file" class="form-control" id="exampleInputText" aria-describedby="emailHelp" multiple>
    </div>
- 
+
    <button type="submit" class="btn btn-primary">Submit</button>
- </form> 
+ </form>
 @endsection

@@ -23,15 +23,15 @@ class StudentController extends Controller
 
 
     public function store(Studentstore $request){
-      
+
         $image_name = '';
         if($request->hasfile('image'))
                  {
-                    $filename = $request->image->move('images', $request->image->hashName()); 
-                
+                    $filename = $request->image->move('images', $request->image->hashName());
+
                     }
 
-                    
+
 
         Student::create([
             'name' => $request->name,
@@ -40,7 +40,7 @@ class StudentController extends Controller
             'address' => $request->address,
             'image' => $filename,
         ]);
-        
+
         return redirect()->route('student.index');
     }
 
@@ -54,7 +54,7 @@ class StudentController extends Controller
         $filename=$student->image;
         if($request->hasfile('image'))
                  {
-                    $filename = $request->image->move('images', $request->image->hashName()); 
+                    $filename = $request->image->move('images', $request->image->hashName());
                     }
 
         $student->update([
@@ -63,7 +63,7 @@ class StudentController extends Controller
             'password' => $request->password,
             'address' => $request->address,
             'image' => $filename,
-           
+
 
         ]);
         return redirect()->route('student.index')->with('message','Student info updated.');
@@ -71,7 +71,7 @@ class StudentController extends Controller
 
 
     public function destroy(Student $student){
-       
+
         $student->delete();
         return redirect()->back()->with('message', 'student deleted');
     }
