@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Student;
+use App\Models\Multipic;
+use App\Models\StudentImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Requests\Studentstore;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -24,24 +29,37 @@ class StudentController extends Controller
 
     public function store(Studentstore $request){
 
-        $image_name = '';
-        if($request->hasfile('image'))
-                 {
-                    $filename = $request->image->move('images', $request->image->hashName());
-
-                    }
-
-
-
-        Student::create([
+        $student = Student::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
             'address' => $request->address,
-            'image' => $filename,
         ]);
 
+        foreach ($request->attachments as $attachment) {
+            $filename = $attachment->move('images', $attachment->hashName());
+
+            StudentImage::create([
+                'student_id' => $student->id,
+                'image' => $filename,
+            ]);
+        }
+
         return redirect()->route('student.index');
+
+        // return  $student->attachments;
+
+
+        // $image_name = '';
+        // $files = $request->file('attachment');
+        // if($request->hasFile('attachment'))
+        //          {
+        //              foreach ($files as $filename){
+        //                 $filename = $request->attachment->move('images', $request->attachment->hashName());
+        //              }
+        //             }
+
+        // return redirect()->route('student.index');
     }
 
     public function edit(Student $student)
@@ -63,9 +81,8 @@ class StudentController extends Controller
             'password' => $request->password,
             'address' => $request->address,
             'image' => $filename,
-
-
         ]);
+
         return redirect()->route('student.index')->with('message','Student info updated.');
     }
 
@@ -77,5 +94,28 @@ class StudentController extends Controller
     }
     public function show(Student $student){
         return $student;
+    }
+
+    
+///multiimage
+    public function multiImage(){
+        $images = Multipic::all();
+        return view('pages.multipic.index', compact('images'));
+    }
+
+    public function storeImage(Request $request){
+        foreach($request->image as $img){
+                if($img){
+                          $imageName = time() . '_' . uniqid() . '.' .$img->getClientOriginalExtension();
+                          Storage::putFileAs('public/gallery', $img, $imageName);
+                $url = 'storage/gallery/' . $imageName;
+                Multipic::create([
+                    'image' => $url,
+
+                ]);
+            }
+        }
+
+        return redirect()->back();
     }
 }

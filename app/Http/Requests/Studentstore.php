@@ -23,12 +23,11 @@ class Studentstore extends FormRequest
      */
     public function rules()
     {
-        return[ 
+        return[
             'name'=>'required ',
             'email'=>'required | email',
             'password'=>'required |min:8 |max:12' ,
             'address'=>'required',
-            'image'=>'required'
         ];
         }
 }

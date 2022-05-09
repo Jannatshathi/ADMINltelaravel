@@ -55,6 +55,6 @@ Route::group(['prefix'=>'user', 'middleware' =>['auth','user']], function(){
 //helper
 Route::get('/test-helper',[HelperTestController::class,'checkhelper']);
 
-//products
-Route::get('/index_product', [ProductController::class,'indexProduct'])->name('products.index');
-Route::post('/addProduct', [ProductController::class,'addProduct'])->name('uploadproducts');
+//multi image
+Route::get('/image', [StudentController::class, 'multiImage'])->name('image');
+Route::post('/image/store', [StudentController::class, 'storeImage'])->name('store.image');

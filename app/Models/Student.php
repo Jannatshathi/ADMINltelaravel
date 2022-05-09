@@ -25,4 +25,8 @@ class Student extends Model
     {
         return strtoupper($value);
     }
+
+    public function images(){
+        return $this->hasMany(StudentImage::class, 'student_id');
+    }
 }
