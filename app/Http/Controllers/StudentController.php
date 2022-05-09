@@ -98,6 +98,12 @@ class StudentController extends Controller
     }
 
     public function storeImage(Request $request){
+        $this->validate($request, [
+
+            'image' => 'required|image',
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+
+        ]);
         foreach($request->image as $img){
                 if($img){
                           $imageName = time() . '_' . uniqid() . '.' .$img->getClientOriginalExtension();
