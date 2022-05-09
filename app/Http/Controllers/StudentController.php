@@ -22,7 +22,7 @@ class StudentController extends Controller
 
     public function index()
     {
-        $student=Student::all();
+        $student=Student::with('images')->get();
         return view('pages.students.student-list', compact('student'));
     }
 
@@ -37,29 +37,23 @@ class StudentController extends Controller
         ]);
 
         foreach ($request->attachments as $attachment) {
-            $filename = $attachment->move('images', $attachment->hashName());
+            if($attachment){
+                //$filename = $attachment->move('images', $attachment->hashName());
 
-            StudentImage::create([
-                'student_id' => $student->id,
-                'image' => $filename,
-            ]);
+                $imageName = time() . '_' . uniqid() . '.' .$attachment->getClientOriginalExtension();
+                      Storage::putFileAs('public/gallery', $attachment, $imageName);
+                        $url = 'storage/gallery/' . $imageName;
+
+                StudentImage::create([
+                    'student_id' => $student->id,
+                    'image' => $imageName,
+                ]);
+            }
+
         }
 
         return redirect()->route('student.index');
 
-        // return  $student->attachments;
-
-
-        // $image_name = '';
-        // $files = $request->file('attachment');
-        // if($request->hasFile('attachment'))
-        //          {
-        //              foreach ($files as $filename){
-        //                 $filename = $request->attachment->move('images', $request->attachment->hashName());
-        //              }
-        //             }
-
-        // return redirect()->route('student.index');
     }
 
     public function edit(Student $student)
@@ -96,7 +90,7 @@ class StudentController extends Controller
         return $student;
     }
 
-    
+
 ///multiimage
     public function multiImage(){
         $images = Multipic::all();

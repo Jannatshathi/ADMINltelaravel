@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-10">
           <x-pageheader data1="Studentlist" data2="Home" data3="Studentlist"/>
-          
+
             <br>
 
 <div class="card">
@@ -39,7 +39,10 @@
                 <td>{{$x->address}}</td>
 
                 <td>
-                  <img src="{{asset($x->image)}}" width="50px" alt="student">
+                    @foreach ($x->images as $image)
+
+                    <img src="{{asset('storage/gallery/'.$image->image)}}" width="50px" alt="student">
+                    @endforeach
                 </td>
                 <td>
                   <a href="{{route('student.edit',$x->id)}}" class="btn btn-primary">Edit</a>
@@ -51,12 +54,12 @@
                    document.getElementById('delete').submit();">
                       {{ __('Delete') }}
                        </a>
-  
+
                     <form id="delete" action="{{route('student.destroy',$x->id)}}" method="POST" class="d-none">
                   @csrf
                   @method('delete')
                  </form>
-                
+
                 </td>
               </tr>
               @endforeach

@@ -35,10 +35,11 @@
         </div>
     </div>
     <div class="card-group">
+
         @foreach ($images as $multi)
         <div class="col-md-4 mt-5">
             <div class="card">
-                <img src="{{ asset($multi->images) }}" alt="">
+                <img src="{{ asset($multi->image) }}" alt="">
             </div>
         </div>
 
