@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\HelperTestController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\imageuploadController;
 
 
 /*
@@ -58,3 +59,5 @@ Route::get('/test-helper',[HelperTestController::class,'checkhelper']);
 //multi image
 Route::get('/image', [StudentController::class, 'multiImage'])->name('image');
 Route::post('/image/store', [StudentController::class, 'storeImage'])->name('store.image');
+//drag cand drop
+Route::resource('/file',imageuploadController::class);
