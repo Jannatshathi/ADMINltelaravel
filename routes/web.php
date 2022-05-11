@@ -1,14 +1,15 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\HelperTestController;
 use App\Http\Controllers\imageuploadController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,11 @@ use App\Http\Controllers\imageuploadController;
 */
 
 Route::get('/', function () {
+    Debugbar::start_measure('getUser','Time for getting user');
+    $users = User::all();
+
+    Debugbar::stop_measure('getUser');
+    // Debugbar::error($user);
     return view('welcome');
 });
 
