@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\HelperTestController;
 use App\Http\Controllers\imageuploadController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,19 @@ Route::group(['middleware' => ['auth','verified']], function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
+//admin
+Route::group(['prefix' => 'admin'], function() {
+    Route::group(['middleware' => 'admin.guest'], function(){
+        Route::view('/login','admin.login')->name('admin.login');
+        Route::post('/login',[AdminController::class, 'authenticate'])->name('admin.auth');
+    });
+    Route::group(['middleware' => 'admin.auth'], function(){
+        Route::get('/dashboard',[DashboardController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/profile_setting',[DashboardController::class, 'profile_setting'])->name('admin.profile_setting');
+        Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+    });
+});
+
 //student
 Route::resource('/student',StudentController::class);
 
@@ -47,11 +61,11 @@ Route::group(['middleware' => ['auth','verified', 'admin']], function () {
 });
 
 
-Route::group(['prefix'=>'admin', 'middleware' =>['auth','admin']], function(){
+/*Route::group(['prefix'=>'admin', 'middleware' =>['auth','admin']], function(){
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
 
-});
+});*/
 
 Route::group(['prefix'=>'user', 'middleware' =>['auth','user']], function(){
     Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
