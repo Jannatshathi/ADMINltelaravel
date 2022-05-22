@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
+use Database\Seeders\TeacherSeeder;
+use App\Models\Teacher;
+use App\Models\Student;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -15,6 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminSeeder::class,
+            TeacherSeeder::class
         ]);
+
+        Student::factory(10)->create();
+        Teacher::factory(10)->create();
     }
 }
