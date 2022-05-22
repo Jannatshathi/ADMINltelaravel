@@ -1,5 +1,5 @@
-<!-- @extends('layouts.app')
-<a href="{{ route('admin.logout') }}" class="list-group-item list-group-item-action text-danger">Logout</a>
+@extends('layouts.app')
+<a href="{{ route('teacher.logout') }}" class="list-group-item list-group-item-action text-danger">Logout</a>
 @section('content')
     <div class="col-md-9">
         <div class="card">
@@ -21,5 +21,4 @@
             </div>
         </div>
     </div>
-@endsection -->
-<h1>Jannat</h1>
+@endsection

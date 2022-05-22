@@ -4,7 +4,7 @@ use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-class AdminRedirectIfAuthenticated
+class TeacherRedirectIfAuthenticated
 {
     /**
      * Handle an incoming request.
@@ -18,8 +18,8 @@ class AdminRedirectIfAuthenticated
     //spread operator hchha ay dotgola...
     //allows us to quickly copy all or part of an existing array or object into another array or object.
     {
-            if (Auth::guard('admin')->check()) {
-                return redirect()->route('admin.dashboard');
+            if (Auth::guard('teacher')->check()) {
+                return redirect()->route('teacher.dashboard');
             }
         return $next($request);
     }

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Teacher;
+
 class TeacherSeeder extends Seeder
 {
     /**
@@ -13,6 +14,11 @@ class TeacherSeeder extends Seeder
      */
     public function run()
     {
-        Teacher::factory(10)->create();
+        $teacher = New Teacher();
+        $teacher->name = 'teacher';
+        $teacher->email = 'teacher@mail.com';
+        $teacher->password = bcrypt('12345678');
+        $teacher->description = 'description';
+        $teacher->save();
     }
 }

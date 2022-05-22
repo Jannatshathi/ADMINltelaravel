@@ -11,6 +11,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\HelperTestController;
 use App\Http\Controllers\imageuploadController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TeacherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('/login',[AdminController::class, 'authenticate'])->name('admin.auth');
     });
     Route::group(['middleware' => 'admin.auth'], function(){
-        Route::get('/dashboard',[DashboardController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/dashboard',[DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
         Route::get('/profile_setting',[DashboardController::class, 'profile_setting'])->name('admin.profile_setting');
         Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
     });
@@ -59,7 +60,18 @@ Route::group(['middleware' => ['auth','verified', 'admin']], function () {
         return 'admin';
     });
 });
-
+//teacher
+Route::group(['prefix' => 'teacher'], function() {
+    Route::group(['middleware' => 'teacher.guest'], function(){
+        Route::view('/login','teacher.login')->name('teacher.login');
+        Route::post('/login',[TeacherController::class, 'authenticate'])->name('teacher.auth');
+    });
+    Route::group(['middleware' => 'teacher.auth'], function(){
+        Route::get('/dashboard',[DashboardController::class, 'teacherDashboard'])->name('teacher.dashboard');
+        Route::get('/profile_setting',[DashboardController::class, 'profile_setting'])->name('teacher.profile_setting');
+        Route::get('/logout', [TeacherController::class, 'logout'])->name('teacher.logout');
+    });
+});
 
 /*Route::group(['prefix'=>'admin', 'middleware' =>['auth','admin']], function(){
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
