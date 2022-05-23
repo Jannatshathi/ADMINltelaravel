@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin'], function() {
 
 //student
 Route::resource('/student',StudentController::class);
+Toastr::success('Messages in here', 'Title', ["positionClass" => "toast-top-center"]);
 
 Route::group(['middleware' => ['auth','verified', 'admin']], function () {
     Route::get('/admin',function(){

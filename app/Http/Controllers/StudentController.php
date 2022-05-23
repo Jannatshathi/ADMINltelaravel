@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 use App\Http\Requests\Studentstore;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Brian2694\Toastr\Facades\Toastr;
 
 class StudentController extends Controller
 {
@@ -52,7 +53,9 @@ class StudentController extends Controller
 
         }
 
-        return redirect()->route('student.index');
+        Toastr::success('Student Create Successfully', 'Success', ["positionClass" => "toast-top-right","closeButton"=> true,"progressBar"=> true,"showDuration"=> "500",]);
+        //return redirect()->route('student.index');
+        return back();
 
     }
 

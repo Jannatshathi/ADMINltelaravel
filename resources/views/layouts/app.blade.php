@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="{{asset('backend/plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('backend/plugins/summernote/summernote-bs4.min.css')}}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
 <style>
 #sectionOne {
     position: relative;
@@ -39,7 +40,7 @@
     z-index: 1050;
   }
 </style>
-  
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
@@ -55,7 +56,7 @@
     <img class="animation__shake" src="{{asset('backend/dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
   </div>
 
- 
+
 
   @include('fixed.header')
 
@@ -70,7 +71,7 @@
     @yield('content')
   </div>
   <!-- /.content-wrapper -->
- 
+
 
   @include('fixed.footer')
 
@@ -116,5 +117,11 @@
 <script src="{{asset('backend/dist/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('backend/dist/js/pages/dashboard.js')}}"></script>
+//toaster
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    toastr.success('Are you the 6 fingered man?')
+</script>
 </body>
 </html>

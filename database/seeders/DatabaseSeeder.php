@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminSeeder::class,
-            TeacherSeeder::class
+            //TeacherSeeder::class
         ]);
 
-        //Student::factory(10)->create();
+        Student::factory(10)->create();
         //Teacher::factory(10)->create();
     }
 }
