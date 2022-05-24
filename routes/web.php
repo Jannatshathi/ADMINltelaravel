@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin'], function() {
 
 //student
 Route::resource('/student',StudentController::class);
+Route::post('/student/search', [StudentController::class, 'show'])->name('search');
 
 Route::group(['middleware' => ['auth','verified', 'admin']], function () {
     Route::get('/admin',function(){

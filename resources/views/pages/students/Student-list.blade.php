@@ -5,8 +5,24 @@
     <div class="row justify-content-center">
         <div class="col-10">
           <x-pageheader data1="Studentlist" data2="Home" data3="Studentlist"/>
+          </div>
 
+          <form action="{{ route('search') }}"  method="POST" class="form-inline">
+              @csrf
+            <div class="input-group input-group-sm">
+              <input class="form-control form-control-navbar" name="search" type="search" placeholder="Search" aria-label="Search">
+              <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </form>
             <br>
+
 
 <div class="card">
 
@@ -30,10 +46,10 @@
               </tr>
             </thead>
              <tbody>
-              @foreach($student as $key=>$x)
+              @foreach($student as $x)
               <tr>
 
-                <td>{{$key+1}}</td>
+                <td>{{$loop->index+1}}</td>
                 <td>{{$x->name}}</td>
                 <td>{{$x->email}}</td>
                 <td>{{$x->address}}</td>
@@ -63,6 +79,8 @@
                 </td>
               </tr>
               @endforeach
+
+
             </tbody>
           </table>
     </div>

@@ -10,6 +10,7 @@ class Imageupload extends Model
     use HasFactory;
 
     protected $table = 'imageuploads';
+
     public $timestamps = true;
 
     protected $dates = [
@@ -22,5 +23,4 @@ class Imageupload extends Model
         'created_at',
         'updated_at'
     ];
-
 }

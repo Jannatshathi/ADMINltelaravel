@@ -19,13 +19,12 @@ class StudentController extends Controller
         return view('pages.students.student-create');
     }
 
-
     public function index()
     {
         $student=Student::with('images')->get();
+
         return view('pages.students.student-list', compact('student'));
     }
-
 
     public function store(Studentstore $request){
 
@@ -39,21 +38,18 @@ class StudentController extends Controller
         foreach ($request->attachments as $attachment) {
             if($attachment){
                 //$filename = $attachment->move('images', $attachment->hashName());
-
                 $imageName = time() . '_' . uniqid() . '.' .$attachment->getClientOriginalExtension();
-                      Storage::putFileAs('public/gallery', $attachment, $imageName);
-                        $url = 'storage/gallery/' . $imageName;
+                Storage::putFileAs('public/gallery', $attachment, $imageName);
+                $url = 'storage/gallery/' . $imageName;
 
                 StudentImage::create([
                     'student_id' => $student->id,
                     'image' => $imageName,
                 ]);
             }
-
         }
 
         return redirect()->route('student.index');
-
     }
 
     public function edit(Student $student)
@@ -64,10 +60,10 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         $filename=$student->image;
-        if($request->hasfile('image'))
-                 {
-                    $filename = $request->image->move('images', $request->image->hashName());
-                    }
+
+        if($request->hasfile('image')){
+            $filename = $request->image->move('images', $request->image->hashName());
+        }
 
         $student->update([
             'name' => $request->name,
@@ -80,18 +76,34 @@ class StudentController extends Controller
         return redirect()->route('student.index')->with('message','Student info updated.');
     }
 
-
     public function destroy(Student $student){
-
         $student->delete();
+
         return redirect()->back()->with('message', 'student deleted');
     }
-    public function show(Student $student){
-        return $student;
+
+    public function show(Request $request, Student $student){
+        //return 123;
+       $search = $request->search;
+
+        if ($search) {
+            $student = Student::where('name','Like','%'.$search.'%')->get();
+        }
+
+        //$search = $student['search'] ?? "";
+
+        //if(search != ""){
+            //where
+            //$students = Student::where('user_name', 'LIKE', "%$search%")->orWhere('email', 'LIKE', "%$search%")->get();
+        //}
+        //else{
+            //$students = Student::all();
+        //}
+
+        return view('pages.students.student-list', compact('student'));
     }
 
-
-///multiimage
+    //multiimage
     public function multiImage(){
         $images = Multipic::all();
         return view('pages.multipic.index', compact('images'));
@@ -99,19 +111,19 @@ class StudentController extends Controller
 
     public function storeImage(Request $request){
         $this->validate($request, [
-
             'image' => 'required|image',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
 
         ]);
+
         foreach($request->image as $img){
-                if($img){
-                          $imageName = time() . '_' . uniqid() . '.' .$img->getClientOriginalExtension();
-                          Storage::putFileAs('public/gallery', $img, $imageName);
+            if($img){
+                $imageName = time() . '_' . uniqid() . '.' .$img->getClientOriginalExtension();
+                Storage::putFileAs('public/gallery', $img, $imageName);
                 $url = 'storage/gallery/' . $imageName;
+
                 Multipic::create([
                     'image' => $url,
-
                 ]);
             }
         }

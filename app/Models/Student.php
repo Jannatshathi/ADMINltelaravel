@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use HasFactory;
-    protected $fillable = [ 'name', 'email', 'password', 'address'];
-    protected $guard = 'student';
 
+    protected $fillable = [ 'name', 'email', 'password', 'address'];
+
+    protected $guard = 'student';
 
     public function setEmailAttribute($value)
     {
