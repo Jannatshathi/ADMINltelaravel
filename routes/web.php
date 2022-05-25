@@ -72,6 +72,10 @@ Route::group(['prefix' => 'teacher'], function() {
         Route::get('/profile_setting',[DashboardController::class, 'profile_setting'])->name('teacher.profile_setting');
         Route::get('/logout', [TeacherController::class, 'logout'])->name('teacher.logout');
     });
+    //csv import
+Route::get('/importForm', [TeacherController::class, 'importForm'])->name('importForm');
+Route::post('/import', [TeacherController::class, 'import'])->name('import');
+
 });
 
 /*Route::group(['prefix'=>'admin', 'middleware' =>['auth','admin']], function(){
@@ -94,3 +98,5 @@ Route::get('/image', [StudentController::class, 'multiImage'])->name('image');
 Route::post('/image/store', [StudentController::class, 'storeImage'])->name('store.image');
 //drag cand drop
 Route::resource('/file',imageuploadController::class);
+
+

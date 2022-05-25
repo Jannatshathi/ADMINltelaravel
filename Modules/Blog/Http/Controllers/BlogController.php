@@ -39,11 +39,11 @@ class BlogController extends Controller
             'name' => $request->name,
             'type' => $request->type,
             'details' => $request->details,
-          
+
         ]);
-        
+
         return redirect()->route('blog.index');
-    
+
     }
 
     /**
@@ -83,7 +83,7 @@ class BlogController extends Controller
         return redirect()->route('blog.index')->with('message','Blog updated.');
     }
 
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -95,4 +95,6 @@ class BlogController extends Controller
         $blog->delete();
         return redirect()->back()->with('message', 'Blog deleted');
     }
+    
+
 }

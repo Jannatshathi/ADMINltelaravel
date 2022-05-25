@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Imports\TeacherImport;
+use Excel;
 
 class TeacherController extends Controller
 {
@@ -20,7 +22,7 @@ class TeacherController extends Controller
         'email' => 'required|email',
         'password' => 'required'
        ]);
-       
+
        if(Auth::guard('teacher')->attempt(['email' => $req->email, 'password' => $req->password],$req->get('remember'))){
         return redirect()->route('teacher.dashboard');
        }
@@ -34,4 +36,15 @@ class TeacherController extends Controller
         Auth::guard('teacher')->logout();
         return redirect()->route('teacher.login');
     }
+
+    public function importForm(){
+        return view('teacher.import');
+
+    }
+
+    public function import(Request $request){
+        Excel::import(new TeacherImport,$request->file);
+        return "Record are imported successfully!";
+    }
+
 }
